@@ -300,4 +300,5 @@ def selector(choice):
         ronaldo_tree_map.update_layout(title='Ronaldo Goals by Tournament')
         return ronaldo_tree_map
 
-app.run_server(port=8001)
+if __name__ == '__main__':
+    app.run_server(port=8000)
