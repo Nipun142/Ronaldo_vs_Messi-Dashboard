@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -5,11 +6,15 @@ import dash
 from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
+import requests
+import io
 
+messi_url=requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/ronaldo.csv').content
+ronaldo_url = requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/messi.csv').content
+ronaldo = pd.read_csv(io.StringIO(ronaldo_url.decode('utf-8')))
+messi=pd.read_csv(io.StringIO(messi_url.decode('utf-8')))
 
 temp='gridon'     #template for graphs
-ronaldo=pd.read_csv('C:\\Users\\asus\\Desktop\\DeployWithRender\\src\\ronaldo.csv')
-messi=pd.read_csv('C:\\Users\\asus\\Desktop\\DeployWithRender\\src\\messi.csv')
 #--------------------------------------------------------------------------------------------------------------------------
 # creating 2 new columns containing the year a goal is scored in and the integer form of it
 def func(d):
@@ -178,7 +183,6 @@ funnel_chart.update_layout(yaxis_title="Goal Type")
 #--------------------------------------------------------------------------------------------------------------------
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
-
 #-----------------------------------------------------------------------------------------------------------------------
 
 app.layout=html.Div([
@@ -296,4 +300,4 @@ def selector(choice):
         ronaldo_tree_map.update_layout(title='Ronaldo Goals by Tournament')
         return ronaldo_tree_map
 
-app.run_server(port=8000)
+app.run_server(port=8001)
