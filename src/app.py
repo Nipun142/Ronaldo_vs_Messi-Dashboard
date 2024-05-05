@@ -9,8 +9,8 @@ from dash.dependencies import Input, Output, State
 import requests
 import io
 
-messi_url=requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/ronaldo.csv').content
-ronaldo_url = requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/messi.csv').content
+messi_url=requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/messi.csv').content
+ronaldo_url = requests.get('https://raw.githubusercontent.com/Nipun142/Ronaldo_vs_Messi-Dashboard/main/src/ronaldo.csv').content
 ronaldo = pd.read_csv(io.StringIO(ronaldo_url.decode('utf-8')))
 messi=pd.read_csv(io.StringIO(messi_url.decode('utf-8')))
 
@@ -182,7 +182,7 @@ funnel_chart.update_layout(yaxis_title="Goal Type")
 
 #--------------------------------------------------------------------------------------------------------------------
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-server = app.server
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 app.layout=html.Div([
@@ -300,5 +300,4 @@ def selector(choice):
         ronaldo_tree_map.update_layout(title='Ronaldo Goals by Tournament')
         return ronaldo_tree_map
 
-if __name__ == '__main__':
-    app.run_server(port=8000)
+app.run_server(port=8001)
